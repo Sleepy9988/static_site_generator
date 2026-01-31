@@ -1,4 +1,5 @@
-from textnode import TextType, TextNode 
+from textnode import TextType, TextNode
+from extract_markdown import extract_markdown_image, extract_markdown_link 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
@@ -22,6 +23,25 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                 split_nodes.append(TextNode(sections[i], text_type))
         new_nodes.extend(split_nodes)
     return new_nodes
+
+
+def split_nodes_images(old_nodes):
+    new_nodes = []
+    for old_node in old_nodes:
+        if old_node.text_type.name != "IMAGE":
+            new_nodes.append(old_node)
+            continue
+        
+        split_nodes = []
+        image_alt, image_link = extract_markdown_image()
+        sections = old_nodes.text.split(f"![{image_alt}]({image_link})", 1)
+
+        
+
+
+
+def split_nodes_link(old_nodes):
+    pass
                 
 
             
